@@ -1,5 +1,3 @@
-# GuzzleQuickStart
-
 [Source](http://docs.guzzlephp.org/en/stable/quickstart.html "Permalink to Quickstart — Guzzle Documentation")
 
 # Bắt đầu nhanh — Tài liệu Guzzle 
@@ -83,12 +81,13 @@ Bạn có thể tạo 1 request và sau đó dùng client để gửi request kh
 `
 Các đối tượng client cung cấp 1 giải pháp linh động trong cách vận chuyển các request bao gồm các tùy chọn request mặc định, các tập middleware xử lý mặc định được sử dụng bởi mỗi request, và 1 URI gốc cho phép bạn gửi các request với các URI tương đối.
 
-You can find out more about client middleware in the [_Handlers and Middleware_][3] page of the documentation.
+Bạn có thể tìm hiểu thêm về client middleware ở trang [_Handlers and Middleware_][3] trong tài liệu.
+ 
 
-### Async Requests
+### Các Request bất đồng bộ
 
 You can send asynchronous requests using the magic methods provided by a client:
-    
+Bạn có thể gửi các request bất đồng bộ sử dụng các magic method
     
     $promise = $client->getAsync('http://httpbin.org/get');
     $promise = $client->deleteAsync('http://httpbin.org/delete');
@@ -99,7 +98,7 @@ You can send asynchronous requests using the magic methods provided by a client:
     $promise = $client->putAsync('http://httpbin.org/put');
     
 
-You can also use the sendAsync() and requestAsync() methods of a client:
+Bạn cũng có thể sử dụng các hàm sendAsync() và requestAsync() của 1 client:
     
     
     use GuzzleHttpPsr7Request;
@@ -113,7 +112,8 @@ You can also use the sendAsync() and requestAsync() methods of a client:
     $promise = $client->requestAsync('GET', 'http://httpbin.org/get');
     
 
-The promise returned by these methods implements the [Promises/A+ spec][4], provided by the [Guzzle promises library][5]. This means that you can chain `then()` calls off of the promise. These then calls are either fulfilled with a successful `PsrHttpMessageResponseInterface` or rejected with an exception.
+Các promise trả về của những hàm này implements [Promises/A+ spec][4], được cung cấp bởi [Guzzle promises library][5]. Điều này có nghĩa là bạn có thể gọi hàm`then()` nối sau promise. Những lời gọi sau này cũng thỏa mãn 1 `PsrHttpMessageResponseInterface` thành công hoặc bị từ chối với 1 ngoại lệ.
+ 
     
     
     use PsrHttpMessageResponseInterface;
@@ -131,9 +131,9 @@ The promise returned by these methods implements the [Promises/A+ spec][4], prov
     );
     
 
-### Concurrent requests
+### Các requests đồng thời
 
-You can send multiple requests concurrently using promises and asynchronous requests.
+Bạn có thể gửi nhiều request đồng thời sử dụng các promise và các request bất đồng bộ.
     
     
     use GuzzleHttpClient;
@@ -162,7 +162,7 @@ You can send multiple requests concurrently using promises and asynchronous requ
     echo $results['png']['value']->getHeader('Content-Length')[0]
     
 
-You can use the `GuzzleHttpPool` object when you have an indeterminate amount of requests you wish to send.
+Bạn có thể sử dụng đối tượng `GuzzleHttpPool`  khi bạn không xác định được lượng request cần phải gửi.
     
     
     use GuzzleHttpPool;
@@ -195,7 +195,7 @@ You can use the `GuzzleHttpPool` object when you have an indeterminate amount of
     $promise->wait();
     
 
-Or using a closure that will return a promise once the pool calls the closure.
+Hoặc sử dụng 1 closure trả về 1 promise khi pool gọi closure.
     
     
     $client = new Client();
@@ -212,18 +212,18 @@ Or using a closure that will return a promise once the pool calls the closure.
     $pool = new Pool($client, $requests(100));
     
 
-## Using Responses
+## Sử dụng các Responses
 
-In the previous examples, we retrieved a `$response` variable or we were delivered a response from a promise. The response object implements a PSR-7 response, `PsrHttpMessageResponseInterface`, and contains lots of helpful information.
+Trong ví dụ bên trên, chúng ta đã lấy được 1 biến `$response` hoặc bạn sẽ lấy được 1 response từ 1 promise. Đối tưởng response sẽ implements 1 PSR-7 response, `PsrHttpMessageResponseInterface`, và chứa rất nhiều thông tin có ích. 
 
-You can get the status code and reason phrase of the response:
+Chúng ta có thể lấy được mã trạng thái và reason phrase của response:
     
     
     $code = $response->getStatusCode(); // 200
     $reason = $response->getReasonPhrase(); // OK
     
 
-You can retrieve headers from the response:
+Bạn cũng có thể lấy được các header từ response:
     
     
     // Check if a header exists.
@@ -240,7 +240,7 @@ You can retrieve headers from the response:
     }
     
 
-The body of a response can be retrieved using the `getBody` method. The body can be used as a string, cast to a string, or used as a stream like object.
+Nội dung body của 1 response có thể lấy được bằng cách sử dụng hàm `getBody`. Nội dung body có thể được sử dụng như 1 chuỗi, ép thành 1 chuỗi, hayay sử dụng như 1 luồng như đối tượng.
     
     
     $body = $response->getBody();
@@ -256,15 +256,17 @@ The body of a response can be retrieved using the `getBody` method. The body can
 
 ## Query String Parameters
 
-You can provide query string parameters with a request in several ways.
+Bạn có thể tạo ra các tham số trong chuỗi query trong 1 request bằng 1 vài cách.
 
-You can set query string parameters in the request's URI:
+Bạn cóó thể đặt các tham số chuỗi query trong URI của request:
+
     
     
     $response = $client->request('GET', 'http://httpbin.org?foo=bar');
     
 
-You can specify the query string parameters using the `query` request option as an array.
+Bạn cũng có thể đặc tả các tham số chuỗi query sử dụng tùy chọn request `query` dưới dạng mảng.
+
     
     
     $client->request('GET', 'http://httpbin.org', [
@@ -272,19 +274,19 @@ You can specify the query string parameters using the `query` request option as 
     ]);
     
 
-Providing the option as an array will use PHP's `http_build_query` function to format the query string.
+Tạo tùy chọn dạng mảng sẽ sử dụng hàm  `http_build_query` của PHP để định dạng chuỗi query. 
 
-And finally, you can provide the `query` request option as a string.
+Và cuối cùng, bạn đã có thể tạo được tùy chọn request `query` như 1 chuỗi rùi đó.
     
     
     $client->request('GET', 'http://httpbin.org', ['query' => 'foo=bar']);
     
 
-## Uploading Data
+## Tải dữ liệu lên
 
-Guzzle provides several methods for uploading data.
+Guzzle cung cấp 1 vài phương thức cho việc tải dữ liệu lên. 
 
-You can send requests that contain a stream of data by passing a string, resource returned from `fopen`, or an instance of a `PsrHttpMessageStreamInterface` to the `body` request option.
+Bạn có thể gửi các request chứa luồng dữ liệu bằng cách truyền 1 chuỗi, resource trả về từ hàm `fopen`, hay 1 thực thể của `PsrHttpMessageStreamInterface` cho tùy chọn request `body`. 
     
     
     // Provide the body as a string.
@@ -301,7 +303,7 @@ You can send requests that contain a stream of data by passing a string, resourc
     $r = $client->request('POST', 'http://httpbin.org/post', ['body' => $body]);
     
 
-An easy way to upload JSON data and set the appropriate header is using the `json` request option:
+1 cách đơn giản để tải dữ liệu Json lên và đặt header riêng là sử dụng tùy chọn request `json`:
     
     
     $r = $client->request('PUT', 'http://httpbin.org/put', [
@@ -309,13 +311,13 @@ An easy way to upload JSON data and set the appropriate header is using the `jso
     ]);
     
 
-### POST/Form Requests
+### Các request POST/Form
 
-In addition to specifying the raw data of a request using the `body` request option, Guzzle provides helpful abstractions over sending POST data.
+Để đặc tả thêm các dữ liệu thô của 1 request sử dụng các tùy chọn request `body`, Guzzle cũng cấp các trừu tượng hữu dụng trong quá trình gửi dữ liệu POST.
 
-#### Sending form fields
+#### Gửi các trường  trong form
 
-Sending `application/x-www-form-urlencoded` POST requests requires that you specify the POST fields as an array in the `form_params` request options.
+Gửi các request POST `application/x-www-form-urlencoded` yêu cầu bạn phải đặc tả trường POST dưới dạng 1 mảng trong các tùy chọn request `form_params` 
     
     
     $response = $client->request('POST', 'http://httpbin.org/post', [
@@ -329,12 +331,12 @@ Sending `application/x-www-form-urlencoded` POST requests requires that you spec
     ]);
     
 
-#### Sending form files
+#### Gửi các file trong form 
 
-You can send files along with a form (`multipart/form-data` POST requests), using the `multipart` request option. `multipart` accepts an array of associative arrays, where each associative array contains the following keys:
+Bạn có thể gửi các file cùng với 1 form  (các yêu cầu `multipart/form-data` POST), sử dụng tùy chọn request `miultipart`. `multipart` chấp nhận các mảng liên kết, mỗi mảng liên kết sẽ chứa các khóa sau"
 
-* name: (required, string) key mapping to the form field name.
-* contents: (required, mixed) Provide a string to send the contents of the file as a string, provide an fopen resource to stream the contents from a PHP stream, or provide a `PsrHttpMessageStreamInterface` to stream the contents from a PSR-7 stream.
+* name: (required, string) khóa nối với trường tên của form
+* contents: (required, mixed) chứa 1 chuỗi để gửi nội dụng của file dưới dạng 1 chuỗi, chứa 1 resource fopen để chuyển nội dụng của 1 luồng PHP, hoặc chứa 1  `PsrHttpMessageStreamInterface` để chuyển nội dung từ 1 luồng PSR-7.
     
     
     $response = $client->request('POST', 'http://httpbin.org/post', [
@@ -361,7 +363,8 @@ You can send files along with a form (`multipart/form-data` POST requests), usin
 
 ## Cookies
 
-Guzzle can maintain a cookie session for you if instructed using the `cookies` request option. When sending a request, the `cookies` option must be set to an instance of `GuzzleHttpCookieCookieJarInterface`.
+Guzzle có thể giữ 1 phiên cookie nếu được yêu cầu sử dụng tùy chọn request `cookies`. Khi gửi 1 request, tùy chọn `cookies` phải được gắn với 1 thực thể
+ `GuzzleHttpCookieCookieJarInterface`.
     
     
     // Use a specific cookie jar
@@ -371,7 +374,7 @@ Guzzle can maintain a cookie session for you if instructed using the `cookies` r
     ]);
     
 
-You can set `cookies` to `true` in a client constructor if you would like to use a shared cookie jar for all requests.
+Bạn có thể đặt `cookies` về `true` trong khởi tạo client nếu bạn muốn sử dụng cookie jar chung cho tất cả các request.
     
     
     // Use a shared client cookie jar
@@ -379,13 +382,13 @@ You can set `cookies` to `true` in a client constructor if you would like to use
     $r = $client->request('GET', 'http://httpbin.org/cookies');
     
 
-## Redirects
+## Điều hướng
 
-Guzzle will automatically follow redirects unless you tell it not to. You can customize the redirect behavior using the `allow_redirects` request option.
+Guzzle sẽ tự động chuyển điều hướng trừ khi bạn bảo nó đừng làm vậy. Bạn có thể tùy chỉnh hành đồng điều hướng sử dụng tùy chọn request `allow_redirects`.
 
-* Set to `true` to enable normal redirects with a maximum number of 5 redirects. This is the default setting.
-* Set to `false` to disable redirects.
-* Pass an associative array containing the 'max' key to specify the maximum number of redirects and optionally provide a 'strict' key value to specify whether or not to use strict RFC compliant redirects (meaning redirect POST requests with POST requests vs. doing what most browsers do which is redirect POST requests with GET requests).
+* Đặt thành `true` để bật điều hướng bình thường với tối đa 5 lần điều hướng. Đây là cài đặt mặc định.
+* Đặt thành `false` để tắt chức năng điều hướng.
+* Truyền 1 mảng liên kết chứa khóa 'max' để đặc tả số lần điều hướng tối đa và có thể thêm khóa 'strict' để đặc tả có sử dụng các chuẩn điều hướng RFC nghiêm ngặt hay không( có nghĩa là điều hướng các request POST với các request POST và làm những gì hầu hết các trình duyệt làm với việc điều hướng các request POST với các request GET).
     
     
     $response = $client->request('GET', 'http://github.com');
@@ -403,11 +406,13 @@ The following example shows that redirects can be disabled.
     // 301
     
 
-## Exceptions
+## Các ngoại lệ
 
-Guzzle throws exceptions for errors that occur during a transfer.
+Guzzle sẽ ném các ngoại lệ cho những lỗi xảy ra trong quá trình truyền thông tin.
 
-* In the event of a networking error (connection timeout, DNS errors, etc.), a `GuzzleHttpExceptionRequestException` is thrown. This exception extends from `GuzzleHttpExceptionTransferException`. Catching this exception will catch any exception that can be thrown while transferring requests.
+* Trong sự kiện lỗi mạng ( hết thời gian kết nối, các lỗi DNS, vân vân), 1
+ `GuzzleHttpExceptionRequestException` sẽ được ném ra. Ngoại lệ này extend từ  `GuzzleHttpExceptionTransferException`. Việc bắt ngoại lệ này sẽ bắt bất cứ ngoại lệ nào có thể được ném ra trong quá trình truyền thông tin.
+
     
         use GuzzleHttpPsr7;
     use GuzzleHttpExceptionRequestException;
@@ -422,8 +427,8 @@ Guzzle throws exceptions for errors that occur during a transfer.
     }
     
 
-* A `GuzzleHttpExceptionConnectException` exception is thrown in the event of a networking error. This exception extends from `GuzzleHttpExceptionRequestException`.
-* A `GuzzleHttpExceptionClientException` is thrown for 400 level errors if the `http_errors` request option is set to true. This exception extends from `GuzzleHttpExceptionBadResponseException` and `GuzzleHttpExceptionBadResponseException` extends from `GuzzleHttpExceptionRequestException`.
+* 1 ngoại lệ `GuzzleHttpExceptionConnectException` được ném ra trong trường hợp lỗi mạng. Ngoại lệ này extends từ  `GuzzleHttpExceptionRequestException`.
+* 1 `GuzzleHttpExceptionClientException` được ném ra mức lỗi 400 nếu tùy chọn request `http_errors` được đặt thành true. Ngoại lệ này extends từ  `GuzzleHttpExceptionBadResponseException` và `GuzzleHttpExceptionBadResponseException` extends từ `GuzzleHttpExceptionRequestException`.
     
         use GuzzleHttpExceptionClientException;
     
@@ -435,27 +440,27 @@ Guzzle throws exceptions for errors that occur during a transfer.
     }
     
 
-* A `GuzzleHttpExceptionServerException` is thrown for 500 level errors if the `http_errors` request option is set to true. This exception extends from `GuzzleHttpExceptionBadResponseException`.
-* A `GuzzleHttpExceptionTooManyRedirectsException` is thrown when too many redirects are followed. This exception extends from `GuzzleHttpExceptionRequestException`.
+* 1 `GuzzleHttpExceptionServerException` được ném ra cho lỗi mức 500 nếu tùy chọn request `http_errors` được đặt thành true. Ngoại lệ này extends từ `GuzzleHttpExceptionBadResponseException`.
+* 1 `GuzzleHttpExceptionTooManyRedirectsException` sẽ được ném ra khi có quá nhiều lần điều hướng xảy ra. Ngoại lệ này extends từ  `GuzzleHttpExceptionRequestException`.
 
-All of the above exceptions extend from `GuzzleHttpExceptionTransferException`.
+Tất cả những ngoại lệ trên đều extend từ  `GuzzleHttpExceptionTransferException`.
 
-## Environment Variables
+## Các biến môi trường
 
-Guzzle exposes a few environment variables that can be used to customize the behavior of the library.
+Guzzle cung cấp 1 vài biến môi trường có thể sử dụng để tuỳ chỉnh hành động của thư viện.
 
 `GUZZLE_CURL_SELECT_TIMEOUT`
-: Controls the duration in seconds that a curl_multi_* handler will use when selecting on curl handles using `curl_multi_select()`. Some systems have issues with PHP's implementation of `curl_multi_select()` where calling this function always results in waiting for the maximum duration of the timeout.
+: điều chỉnh thời gian tính bằng giây mà 1 xử lý curl_multi_* sẽ sử dụng khi chọn xử lý curl bằng  `curl_multi_select()`. 1 vài hệ thống có vấn đề với các triển khai của PHP của  `curl_multi_select()` khi mà việc gọi hàm này luôn luôn dẫn tới 1 kết quả bị quá thời gian thực thi tối đa.
 
 `HTTP_PROXY`
 : 
 
-Defines the proxy to use when sending requests using the "http" protocol.
+Định nghĩa proxy được sử dụng khi gửi các request sử dụng giao thức "http".
 
-Note: because the HTTP_PROXY variable may contain arbitrary user input on some (CGI) environments, the variable is only used on the CLI SAPI. See  for more information.
+Ghi chú: vì biến HTTP_PROXY có thể chứa đầu vào tùy ý từ người dùng trên 1 vài môi trường (CGI), nên nó chỉ được sử dụng trên CLI SAPI. Xem thêm thông tin sau đây.
 
 `HTTPS_PROXY`
-: Defines the proxy to use when sending requests using the "https" protocol.
+: Định nghĩa proxy được sử dụng khi gửi các request sử dụng giao thức "https".
 
 [1]: http://docs.guzzlephp.org/overview.html#installation
 [2]: http://tools.ietf.org/html/rfc3986#section-5.2
