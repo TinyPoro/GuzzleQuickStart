@@ -28,7 +28,7 @@ Việc khởi tạo client cho phép mảng liên kết các tùy chọn:
 `base_uri`
 : 
 
-(string|UriInterface) URI gốc của client được nối với các URI tương đối. Có thể là 1 string hoặc là 1 thực thể UriInterface. Khi client đưa ra 1 Uri tương đối, client sẽ nối URI gốc với URI tương đối sử dụng các luật được mô tả trong [RFC 3986, section 2][2].
+(string|UriInterface) URI gốc của client được nối th các URI tương đối. Có thể là 1 string hoặc là 1 thực thể UriInterface. Khi client đưa ra 1 Uri tương đối, client sẽ nối URI gốc với URI tương đối sử dụng các luật được mô tả trong [RFC 3986, section 2][2].
     
     
     // Create a client with a base URI
