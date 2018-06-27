@@ -38,7 +38,7 @@ Việc khởi tạo client cho phép mảng liên kết các tùy chọn:
     // Send a request to https://foo.com/root
     $response = $client->request('GET', '/root');
     
-Không cảm thấy là đã từng đọc RFC 3986? Vậy thì đây là 1 vài ví dụ nhanh về cách mà 1 `base_uri` sẽ được xử lý với URI khác.
+Bạn cảm thấy không thích đọc RFC 3986? Vậy thì đây là 1 vài ví dụ nhanh về cách mà 1 `base_uri` sẽ được xử lý với URI khác.
 
 | base_uri              | URI              | Result                   |  
 | --------------------- | ---------------- | ------------------------ |  
@@ -86,7 +86,6 @@ Bạn có thể tìm hiểu thêm về client middleware ở trang [_Handlers an
 
 ### Các Request bất đồng bộ
 
-You can send asynchronous requests using the magic methods provided by a client:
 Bạn có thể gửi các request bất đồng bộ sử dụng các magic method
     
     $promise = $client->getAsync('http://httpbin.org/get');
@@ -240,7 +239,7 @@ Bạn cũng có thể lấy được các header từ response:
     }
     
 
-Nội dung body của 1 response có thể lấy được bằng cách sử dụng hàm `getBody`. Nội dung body có thể được sử dụng như 1 chuỗi, ép thành 1 chuỗi, hayay sử dụng như 1 luồng như đối tượng.
+Nội dung body của 1 response có thể lấy được bằng cách sử dụng hàm `getBody`. Nội dung body có thể được sử dụng như 1 chuỗi, ép thành 1 chuỗi, hay sử dụng như 1 luồng như đối tượng.
     
     
     $body = $response->getBody();
@@ -254,7 +253,7 @@ Nội dung body của 1 response có thể lấy được bằng cách sử dụ
     $remainingBytes = $body->getContents();
     
 
-## Query String Parameters
+## Tham số trong chuỗi query
 
 Bạn có thể tạo ra các tham số trong chuỗi query trong 1 request bằng 1 vài cách.
 
@@ -276,7 +275,7 @@ Bạn cũng có thể đặc tả các tham số chuỗi query sử dụng tùy 
 
 Tạo tùy chọn dạng mảng sẽ sử dụng hàm  `http_build_query` của PHP để định dạng chuỗi query. 
 
-Và cuối cùng, bạn đã có thể tạo được tùy chọn request `query` như 1 chuỗi rùi đó.
+Và cuối cùng, bạn đã có thể tạo được tùy chọn request `query` như 1 chuỗi rồi đó.
     
     
     $client->request('GET', 'http://httpbin.org', ['query' => 'foo=bar']);
@@ -333,7 +332,7 @@ Gửi các request POST `application/x-www-form-urlencoded` yêu cầu bạn ph�
 
 #### Gửi các file trong form 
 
-Bạn có thể gửi các file cùng với 1 form  (các yêu cầu `multipart/form-data` POST), sử dụng tùy chọn request `miultipart`. `multipart` chấp nhận các mảng liên kết, mỗi mảng liên kết sẽ chứa các khóa sau"
+Bạn có thể gửi các file cùng với 1 form  (các yêu cầu `multipart/form-data` POST), sử dụng tùy chọn request `miultipart`. `multipart` chấp nhận các mảng liên kết, mỗi mảng liên kết sẽ chứa các khóa sau:
 
 * name: (required, string) khóa nối với trường tên của form
 * contents: (required, mixed) chứa 1 chuỗi để gửi nội dụng của file dưới dạng 1 chuỗi, chứa 1 resource fopen để chuyển nội dụng của 1 luồng PHP, hoặc chứa 1  `PsrHttpMessageStreamInterface` để chuyển nội dung từ 1 luồng PSR-7.
