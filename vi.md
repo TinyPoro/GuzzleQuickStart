@@ -21,7 +21,7 @@ Bạn có thể gửi các request với Guzzle bằng cách sử dụng 1 đố
     ]);
     
 
-Các client là bất biến trong Guzzle 6, có nghĩa là bạn sẽ không thể thay đổi các mặc định được client sử dụng sau khi nó được tạo.
+Các client bất biến trong Guzzle 6, có nghĩa là bạn sẽ không thể thay đổi các mặc định được client sử dụng sau khi nó được tạo.
 
 Việc khởi tạo client cho phép mảng liên kết các tùy chọn:
 
@@ -38,7 +38,7 @@ Việc khởi tạo client cho phép mảng liên kết các tùy chọn:
     // Send a request to https://foo.com/root
     $response = $client->request('GET', '/root');
     
-Không cảm thấy là đã từng đọc RFC 3986? Vậy thì đây là 1 vài ví dụ nhanh về cách mà 1 `base_uri` sẽ được xử lý với URI khác.
+Không muốn đọc RFC 3986? Vậy thì đây là 1 vài ví dụ nhanh về cách mà 1 `base_uri` sẽ được xử lý với URI khác.
 
 | base_uri              | URI              | Result                   |  
 | --------------------- | ---------------- | ------------------------ |  
@@ -78,7 +78,8 @@ Bạn có thể tạo 1 request và sau đó dùng client để gửi request kh
     $request = new Request('PUT', 'http://httpbin.org/put');
     $response = $client->send($request, ['timeout' => 2]);
     
-`
+
+
 Các đối tượng client cung cấp 1 giải pháp linh động trong cách vận chuyển các request bao gồm các tùy chọn request mặc định, các tập middleware xử lý mặc định được sử dụng bởi mỗi request, và 1 URI gốc cho phép bạn gửi các request với các URI tương đối.
 
 Bạn có thể tìm hiểu thêm về client middleware ở trang [_Handlers and Middleware_][3] trong tài liệu.
@@ -112,7 +113,7 @@ Bạn cũng có thể sử dụng các hàm sendAsync() và requestAsync() của
     $promise = $client->requestAsync('GET', 'http://httpbin.org/get');
     
 
-Các promise trả về của những hàm này implements [Promises/A+ spec][4], được cung cấp bởi [Guzzle promises library][5]. Điều này có nghĩa là bạn có thể gọi hàm`then()` nối sau promise. Những lời gọi sau này cũng thỏa mãn 1 `PsrHttpMessageResponseInterface` thành công hoặc bị từ chối với 1 ngoại lệ.
+Các promise trả về của những hàm này implements [Promises/A+ spec][4], được cung cấp bởi [Guzzle promises library][5]. Điều này có nghĩa là bạn có thể gọi hàm`then()` ngay sau promise. Những lời gọi sau này cũng thỏa mãn 1 `PsrHttpMessageResponseInterface` nếu thành công hoặc bị từ chối với 1 ngoại lệ.
  
     
     
@@ -240,7 +241,7 @@ Bạn cũng có thể lấy được các header từ response:
     }
     
 
-Nội dung body của 1 response có thể lấy được bằng cách sử dụng hàm `getBody`. Nội dung body có thể được sử dụng như 1 chuỗi, ép thành 1 chuỗi, hayay sử dụng như 1 luồng như đối tượng.
+Nội dung body của 1 response có thể lấy được bằng cách sử dụng hàm `getBody`. Nội dung body có thể được sử dụng như 1 chuỗi, ép thành 1 chuỗi, hay sử dụng như 1 luồng giống đối tượng.
     
     
     $body = $response->getBody();
@@ -258,7 +259,7 @@ Nội dung body của 1 response có thể lấy được bằng cách sử dụ
 
 Bạn có thể tạo ra các tham số trong chuỗi query trong 1 request bằng 1 vài cách.
 
-Bạn cóó thể đặt các tham số chuỗi query trong URI của request:
+Bạn có thể đặt các tham số chuỗi query trong URI của request:
 
     
     
@@ -333,7 +334,7 @@ Gửi các request POST `application/x-www-form-urlencoded` yêu cầu bạn ph�
 
 #### Gửi các file trong form 
 
-Bạn có thể gửi các file cùng với 1 form  (các yêu cầu `multipart/form-data` POST), sử dụng tùy chọn request `miultipart`. `multipart` chấp nhận các mảng liên kết, mỗi mảng liên kết sẽ chứa các khóa sau"
+Bạn có thể gửi các file cùng với 1 form  (các yêu cầu `multipart/form-data` POST), sử dụng tùy chọn request `multipart`. `multipart` chấp nhận các mảng liên kết, mỗi mảng liên kết sẽ chứa các khóa sau"
 
 * name: (required, string) khóa nối với trường tên của form
 * contents: (required, mixed) chứa 1 chuỗi để gửi nội dụng của file dưới dạng 1 chuỗi, chứa 1 resource fopen để chuyển nội dụng của 1 luồng PHP, hoặc chứa 1  `PsrHttpMessageStreamInterface` để chuyển nội dung từ 1 luồng PSR-7.
@@ -384,7 +385,7 @@ Bạn có thể đặt `cookies` về `true` trong khởi tạo client nếu b�
 
 ## Điều hướng
 
-Guzzle sẽ tự động chuyển điều hướng trừ khi bạn bảo nó đừng làm vậy. Bạn có thể tùy chỉnh hành đồng điều hướng sử dụng tùy chọn request `allow_redirects`.
+Guzzle sẽ tự động chuyển điều hướng trừ khi bạn bảo nó đừng làm vậy. Bạn có thể tùy chỉnh hành động điều hướng sử dụng tùy chọn request `allow_redirects`.
 
 * Đặt thành `true` để bật điều hướng bình thường với tối đa 5 lần điều hướng. Đây là cài đặt mặc định.
 * Đặt thành `false` để tắt chức năng điều hướng.
